@@ -4,8 +4,9 @@
  */
 import fs from "fs";
 import path from "path";
-import { makePalette, makeUIColors, makeSyntaxColors, type Variant } from "./colors";
+import { makePalette, makeUIColors, type Variant } from "./colors";
 import { buildWorkbench } from "./workbench/index";
+import { buildSyntax } from "./syntax";
 
 // Allow overriding the output directory via env so CI / shell runs
 // can write to a writable scratch area when needed.
@@ -23,16 +24,15 @@ const VARIANTS: { id: Variant; label: string }[] = [
 for (const variant of VARIANTS) {
   const resolved = makePalette(variant.id);
   const ui       = makeUIColors(resolved);
-  void makeSyntaxColors(resolved);
 
-  const colors     = buildWorkbench(ui);
-  const tokenColors: unknown[] = [];
+  const colors                               = buildWorkbench(ui);
+  const { tokenColors, semanticTokenColors } = buildSyntax(resolved);
 
   const theme = {
     name:  variant.label,
     type:  variant.id === "light" ? "light" : "dark",
     semanticHighlighting: true,
-    semanticTokenColors: {},
+    semanticTokenColors,
     colors,
     tokenColors,
   };

@@ -31,20 +31,20 @@ export const palette = {
 	base00: "#657b83", // body text on light background / emphasized on dark
 
 	// Light background tones (darkest -> lightest)
-	base0: "#839496",  // primary body text on dark background
-	base1: "#93a1a1",  // optional emphasized content (on dark)
-	base2: "#eee8d5",  // background highlight (on light)
-	base3: "#fdf6e3",  // main background (light mode)
+	base0: "#839496", // primary body text on dark background
+	base1: "#93a1a1", // optional emphasized content (on dark)
+	base2: "#eee8d5", // background highlight (on light)
+	base3: "#fdf6e3", // main background (light mode)
 
 	// Accent colors
-	yellow:  "#b58900",
-	orange:  "#cb4b16",
-	red:     "#dc322f",
+	yellow: "#b58900",
+	orange: "#cb4b16",
+	red: "#dc322f",
 	magenta: "#d33682",
-	violet:  "#6c71c4",
-	blue:    "#268bd2",
-	cyan:    "#2aa198",
-	green:   "#859900",
+	violet: "#6c71c4",
+	blue: "#268bd2",
+	cyan: "#2aa198",
+	green: "#859900",
 } as const
 
 /**
@@ -61,20 +61,20 @@ export const paletteOsaka = {
 	base00: "#647a82", // body text on light / emphasized on dark
 
 	// Light background tones
-	base0: "#9fabad",  // primary body text on dark background
-	base1: "#adb8b8",  // optional emphasized content
-	base2: "#ede7d4",  // background highlight (on light)
-	base3: "#fdf6e2",  // main background (light mode)
+	base0: "#9fabad", // primary body text on dark background
+	base1: "#adb8b8", // optional emphasized content
+	base2: "#ede7d4", // background highlight (on light)
+	base3: "#fdf6e2", // main background (light mode)
 
 	// Accent colors -- unchanged from base palette
-	yellow:  "#b58900",
-	orange:  "#cb4b16",
-	red:     "#dc322f",
+	yellow: "#b58900",
+	orange: "#cb4b16",
+	red: "#dc322f",
 	magenta: "#d33682",
-	violet:  "#6c71c4",
-	blue:    "#268bd2",
-	cyan:    "#2aa198",
-	green:   "#859900",
+	violet: "#6c71c4",
+	blue: "#268bd2",
+	cyan: "#2aa198",
+	green: "#719e07",
 } as const
 
 export type OsakaPalette = typeof paletteOsaka
@@ -119,21 +119,21 @@ export interface ResolvedVariant {
 	// ------------------------------------------------------------------
 	// Background layers
 	// ------------------------------------------------------------------
-	bg: string       // primary background (base03 dark / base3 light)
+	bg: string // primary background (base03 dark / base3 light)
 	bgBright: string // secondary background, hover/active surfaces (base02 / base2)
 
 	// ------------------------------------------------------------------
 	// Foreground layers
 	// ------------------------------------------------------------------
-	fg: string       // default text on bg (base0 dark / base00 light)
+	fg: string // default text on bg (base0 dark / base00 light)
 	fgBright: string // text on bgBright surfaces, hover/active text (base1 dark / base01 light)
 	fgSubtle: string // NonText equivalent, rarely used (base00 dark / base0 light)
-	fgDim: string    // de-emphasized: comments, inactive, line numbers (base01 dark / base1 light)
+	fgDim: string // de-emphasized: comments, inactive, line numbers (base01 dark / base1 light)
 
 	// ------------------------------------------------------------------
 	// Borders / separators
 	// ------------------------------------------------------------------
-	border: string       // default border on bg surfaces (base02 dark / base2 light)
+	border: string // default border on bg surfaces (base02 dark / base2 light)
 	borderBright: string // active/focused border (cyan)
 
 	// ------------------------------------------------------------------
@@ -153,42 +153,42 @@ export function makePalette(variant: Variant): ResolvedVariant {
 	const p = variant === "osaka" ? paletteOsaka : palette
 
 	const accents = {
-		yellow:  p.yellow,
-		orange:  p.orange,
-		red:     p.red,
+		yellow: p.yellow,
+		orange: p.orange,
+		red: p.red,
 		magenta: p.magenta,
-		violet:  p.violet,
-		blue:    p.blue,
-		cyan:    p.cyan,
-		green:   p.green,
+		violet: p.violet,
+		blue: p.blue,
+		cyan: p.cyan,
+		green: p.green,
 	}
 
 	switch (variant) {
 		case "dark":
 			return {
 				palette: p,
-				bg:           p.base03, // primary background
-				bgBright:     p.base02, // secondary background, hover/active backgrounds
-				fg:           p.base0,  // text on base03, default foreground
-				fgBright:     p.base1,  // text on base02, hover/active text
-				fgSubtle:     p.base00, // NonText equivalent
-				fgDim:        p.base01, // de-emphasized: comments, inactive, line numbers
-				border:       p.base02, // borders on base03
-				borderBright: p.cyan,   // active borders
+				bg: p.base03, // primary background
+				bgBright: p.base02, // secondary background, hover/active backgrounds
+				fg: p.base0, // text on base03, default foreground
+				fgBright: p.base1, // text on base02, hover/active text
+				fgSubtle: p.base00, // NonText equivalent
+				fgDim: p.base01, // de-emphasized: comments, inactive, line numbers
+				border: p.base02, // borders on base03
+				borderBright: p.cyan, // active borders
 				...accents,
 			}
 
 		case "light":
 			return {
 				palette: p,
-				bg:           p.base3,  // primary background
-				bgBright:     p.base2,  // secondary background, hover/active backgrounds
-				fg:           p.base00, // text on base3, default foreground
-				fgBright:     p.base01, // text on base2, hover/active text
-				fgSubtle:     p.base0,  // NonText equivalent
-				fgDim:        p.base1,  // de-emphasized: comments, inactive, line numbers
-				border:       p.base2,  // borders on base3
-				borderBright: p.cyan,   // active borders
+				bg: p.base3, // primary background
+				bgBright: p.base2, // secondary background, hover/active backgrounds
+				fg: p.base00, // text on base3, default foreground
+				fgBright: p.base01, // text on base2, hover/active text
+				fgSubtle: p.base0, // NonText equivalent
+				fgDim: p.base1, // de-emphasized: comments, inactive, line numbers
+				border: p.base2, // borders on base3
+				borderBright: p.cyan, // active borders
 				...accents,
 			}
 
@@ -196,149 +196,16 @@ export function makePalette(variant: Variant): ResolvedVariant {
 		case "osaka":
 			return {
 				palette: p,
-				bg:           p.base03, // primary background
-				bgBright:     p.base02, // secondary background, hover/active backgrounds
-				fg:           p.base0,  // text on base03, default foreground
-				fgBright:     p.base1,  // text on base02, hover/active text
-				fgSubtle:     p.base00, // NonText equivalent
-				fgDim:        p.base01, // de-emphasized: comments, inactive, line numbers
-				border:       p.base02, // borders on base03
-				borderBright: p.cyan,   // active borders
+				bg: p.base03, // primary background
+				bgBright: p.base02, // secondary background, hover/active backgrounds
+				fg: p.base0, // text on base03, default foreground
+				fgBright: p.base1, // text on base02, hover/active text
+				fgSubtle: p.base00, // NonText equivalent
+				fgDim: p.base01, // de-emphasized: comments, inactive, line numbers
+				border: p.base02, // borders on base03
+				borderBright: p.cyan, // active borders
 				...accents,
 			}
-	}
-}
-
-// ---------------------------------------------------------------------------
-// Syntax color roles
-// ---------------------------------------------------------------------------
-
-export interface SyntaxColors {
-	comment: string
-	commentItalic: boolean
-
-	string: string
-	escape: string
-	regex: string
-
-	number: string
-	boolean: string
-	float: string
-
-	keyword: string
-	conditional: string
-	repeat: string
-	label: string
-	operator: string
-	exception: string
-
-	preproc: string
-	include: string
-	macro: string
-	define: string
-
-	type: string
-	typeBuiltin: string
-	typedef: string
-	storageClass: string
-
-	special: string
-	specialChar: string
-
-	punctuationDelimiter: string
-	punctuationBracket: string
-	punctuationSpecial: string
-
-	identifier: string
-	function: string
-	method: string
-	constructor: string
-	parameter: string
-
-	variable: string
-	variableBuiltin: string
-
-	constant: string
-	constantBuiltin: string
-
-	tag: string
-	tagAttribute: string
-	tagDelimiter: string
-
-	todo: string
-	error: string
-
-	title: string
-	strong: string
-	emphasis: string
-	underline: string
-	strikethrough: string
-	uri: string
-}
-
-export function makeSyntaxColors(v: ResolvedVariant): SyntaxColors {
-	const p = v.palette
-	return {
-		comment:      p.base01,
-		commentItalic: true,
-
-		string: p.cyan,
-		escape: p.orange,
-		regex:  p.cyan,
-
-		number:  p.cyan,
-		boolean: p.cyan,
-		float:   p.cyan,
-
-		keyword:     p.green,
-		conditional: p.green,
-		repeat:      p.green,
-		label:       p.green,
-		operator:    p.green,
-		exception:   p.green,
-
-		preproc: p.red,
-		include: p.red,
-		macro:   p.red,
-		define:  p.red,
-
-		type:         p.yellow,
-		typeBuiltin:  p.yellow,
-		typedef:      p.yellow,
-		storageClass: p.yellow,
-
-		special:     p.orange,
-		specialChar: p.orange,
-
-		punctuationDelimiter: p.green,
-		punctuationBracket:   p.orange,
-		punctuationSpecial:   p.orange,
-
-		identifier:  p.blue,
-		function:    p.blue,
-		method:      p.blue,
-		constructor: p.orange,
-		parameter:   p.orange,
-
-		variable:        p.base0,
-		variableBuiltin: p.orange,
-
-		constant:        p.cyan,
-		constantBuiltin: p.yellow,
-
-		tag:          p.green,
-		tagAttribute: p.blue,
-		tagDelimiter: p.red,
-
-		todo:  p.magenta,
-		error: p.red,
-
-		title:         p.orange,
-		strong:        p.base1,
-		emphasis:      p.base1,
-		underline:     p.violet,
-		strikethrough: p.base01,
-		uri:           p.violet,
 	}
 }
 
@@ -468,20 +335,20 @@ export function makeUIColors(v: ResolvedVariant): UIColors & ResolvedVariant {
 		...v,
 
 		// Editor core
-		editorBg:          v.bg,
-		editorFg:          v.fg,
+		editorBg: v.bg,
+		editorFg: v.fg,
 		editorLineHighlight: v.bgBright,
-		editorCursor:      p.base0,
-		editorSelection:   v.bgBright,
+		editorCursor: p.base0,
+		editorSelection: v.bgBright,
 		editorSelectionHL: v.bgBright + "80",
 
 		// Line numbers
-		lineNr:       v.fgDim,
+		lineNr: v.fgDim,
 		lineNrActive: v.fgBright,
 
 		// Whitespace / indentation
-		whitespace:        v.bgBright,
-		indentGuide:       v.bgBright,
+		whitespace: v.bgBright,
+		indentGuide: v.bgBright,
 		indentGuideActive: v.fgDim,
 
 		// Bracket matching
@@ -489,92 +356,92 @@ export function makeUIColors(v: ResolvedVariant): UIColors & ResolvedVariant {
 		matchBracketFg: p.red,
 
 		// Search
-		findMatch:        p.yellow + "50",
-		findMatchBorder:  p.yellow,
-		findMatchHL:      p.orange + "50",
+		findMatch: p.yellow + "50",
+		findMatchBorder: p.yellow,
+		findMatchHL: p.orange + "50",
 		findMatchHLBorder: p.orange,
 
 		// Diff
-		diffAddedBg:    p.green  + "22",
-		diffAddedFg:    p.green,
+		diffAddedBg: p.green + "22",
+		diffAddedFg: p.green,
 		diffModifiedBg: p.yellow + "22",
 		diffModifiedFg: p.yellow,
-		diffRemovedBg:  p.red    + "22",
-		diffRemovedFg:  p.red,
+		diffRemovedBg: p.red + "22",
+		diffRemovedFg: p.red,
 
 		// Git decorations
-		gitAdded:     p.green,
-		gitModified:  p.yellow,
-		gitDeleted:   p.red,
+		gitAdded: p.green,
+		gitModified: p.yellow,
+		gitDeleted: p.red,
 		gitUntracked: p.cyan,
-		gitIgnored:   v.fgDim,
+		gitIgnored: v.fgDim,
 
 		// Diagnostics
 		diagError: p.red,
-		diagWarn:  p.yellow,
-		diagInfo:  p.cyan,
-		diagHint:  p.green,
+		diagWarn: p.yellow,
+		diagInfo: p.cyan,
+		diagHint: p.green,
 
 		// Status bar -- flat bg; fgBright (Solarized step-up)
-		statusBarBg:        v.bg,
-		statusBarFg:        v.fgBright,
-		statusBarBgDebug:   p.orange,
+		statusBarBg: v.bgBright,
+		statusBarFg: v.fgBright,
+		statusBarBgDebug: p.orange,
 		statusBarBgNoFolder: v.bg,
 
 		// Activity bar -- flat bg, primary fg
-		activityBarBg:      v.bg,
-		activityBarFg:      v.fg,
+		activityBarBg: v.bg,
+		activityBarFg: v.fg,
 		activityBarBadgeBg: p.cyan,
 		activityBarBadgeFg: v.bg,
 
 		// Side bar -- flat bg, primary fg
-		sideBarBg:       v.bg,
-		sideBarFg:       v.fg,
+		sideBarBg: v.bg,
+		sideBarFg: v.fg,
 		sideBarHeaderFg: v.fgDim,
-		sideBarBorder:   v.border,
+		sideBarBorder: v.border,
 
 		// Tabs -- flat bg
-		tabActiveBg:       v.bg,
-		tabActiveFg:       p.yellow,
-		tabInactiveBg:     v.bg,
-		tabInactiveFg:     v.fgDim,
-		tabBorder:         v.border,
+		tabActiveBg: v.bg,
+		tabActiveFg: v.fgBright,
+		tabInactiveBg: v.bgBright,
+		tabInactiveFg: v.fgSubtle,
+		tabBorder: v.border,
 		tabActiveBorderTop: p.cyan,
 
 		// Title bar -- flat bg; fgBright
-		titleBarActiveBg:   v.bg,
-		titleBarActiveFg:   v.fgBright,
+		titleBarActiveBg: v.bg,
+		titleBarActiveFg: v.fg,
 		titleBarInactiveBg: v.bg,
-		titleBarInactiveFg: v.fgDim,
+		titleBarInactiveFg: v.fgSubtle,
 
 		// Panel -- flat bg
-		panelBg:             v.bg,
-		panelBorder:         v.border,
-		panelTitleActiveFg:  p.yellow,
+		panelBg: v.bg,
+		panelBorder: v.border,
+		panelTitleActiveFg: p.yellow,
 		panelTitleActiveBorder: p.cyan,
 
 		// Popup / widget -- bgBright surface; fgBright
-		popupBg:          v.bgBright,
-		popupFg:          v.fgBright,
-		popupBorder:      v.border,
-		popupSelectionBg: p.base2,
-		popupSelectionFg: p.base01,
+		popupBg: v.bgBright,
+		popupFg: v.fgBright,
+		popupBorder: v.border,
+		popupSelectionBg: v.fgDim,
+		popupSelectionFg: v.bg,
 
 		// Input -- bgBright surface; fgBright
-		inputBg:          v.bgBright,
-		inputFg:          v.fgBright,
-		inputBorder:      v.border,
+		inputBg: v.bgBright,
+		inputFg: v.fgBright,
+		inputBorder: v.border,
 		inputBorderFocus: p.cyan,
-		inputPlaceholder: v.fgDim,
+		inputPlaceholder: v.fgSubtle,
 
 		// Buttons
-		buttonBg:      p.cyan,
-		buttonFg:      v.bg,
+		buttonBg: p.cyan,
+		buttonFg: v.bg,
 		buttonHoverBg: p.blue,
 
 		// Scrollbar
-		scrollbarSlider:       v.fgDim + "40",
-		scrollbarSliderHover:  v.fgDim + "70",
+		scrollbarSlider: v.fgDim + "40",
+		scrollbarSliderHover: v.fgDim + "70",
 		scrollbarSliderActive: v.fgDim + "99",
 
 		// Minimap
@@ -582,25 +449,25 @@ export function makeUIColors(v: ResolvedVariant): UIColors & ResolvedVariant {
 		minimapSelection: v.fgDim,
 
 		// Breadcrumbs
-		breadcrumbFg:      v.fgDim,
+		breadcrumbFg: v.fgDim,
 		breadcrumbFocusFg: v.fg,
-		breadcrumbBg:      v.bg,
+		breadcrumbBg: v.bg,
 
 		// Peek view -- bgBright surface
-		peekViewBorder:         p.cyan,
-		peekViewBg:             v.bgBright,
-		peekViewTitleBg:        v.bgBright,
-		peekViewMatchHL:        p.orange + "50",
-		peekViewResultsMatchHL: p.cyan   + "40",
+		peekViewBorder: p.cyan,
+		peekViewBg: v.bgBright,
+		peekViewTitleBg: v.bgBright,
+		peekViewMatchHL: p.orange + "50",
+		peekViewResultsMatchHL: p.cyan + "40",
 
 		// Notifications -- bgBright surface; fgBright
-		notifBg:     v.bgBright,
-		notifFg:     v.fgBright,
+		notifBg: v.bgBright,
+		notifFg: v.fgBright,
 		notifBorder: v.border,
 
 		// Misc
-		focusBorder:   p.cyan,
-		selectionBg:   v.bgBright,
+		focusBorder: p.cyan,
+		selectionBg: v.bgBright,
 		progressBarBg: p.cyan,
 	}
 }
