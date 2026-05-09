@@ -1,0 +1,49 @@
+{
+  "name": "neosolarized",
+  "displayName": "NeoSolarized",
+  "description": "A VSCode port of Svrana's NeoSolarized Neovim theme.",
+  "version": "0.1.0",
+  "publisher": "adamdotjs",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "keywords": [
+    "solarized",
+    "neosolarized",
+    "dark",
+    "light",
+    "color theme"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "NeoSolarized Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/neosolarized-dark.json"
+      },
+      {
+        "label": "NeoSolarized Osaka",
+        "uiTheme": "vs-dark",
+        "path": "./themes/neosolarized-osaka.json"
+      },
+      {
+        "label": "NeoSolarized Light",
+        "uiTheme": "vs",
+        "path": "./themes/neosolarized-light.json"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "npx tsx src/build.ts",
+    "watch": "npx tsx --watch src/build.ts",
+    "typecheck": "npx tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.2",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}
