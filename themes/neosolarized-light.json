@@ -12,12 +12,12 @@
     "struct": "#b58900",
     "typeParameter": "#b58900",
     "namespace": "#268bd2",
+    "builtinConstant": "#b58900",
     "function": "#268bd2",
     "function.declaration": "#268bd2",
     "method": "#268bd2",
     "method.declaration": "#268bd2",
     "variable": "#657b83",
-    "variable.readonly": "#2aa198",
     "parameter": "#cb4b16",
     "property": "#268bd2",
     "property.readonly": "#2aa198",
@@ -839,15 +839,7 @@
         "keyword.operator.in",
         "keyword.operator.instanceof",
         "keyword.other",
-        "storage.type.class",
-        "storage.type.const",
-        "storage.type.function",
-        "storage.type.interface",
-        "storage.type.enum",
-        "storage.type.namespace",
-        "storage.type.module",
-        "storage.type.import",
-        "storage.type.package",
+        "storage.type",
         "storage.modifier"
       ],
       "settings": {
@@ -902,15 +894,6 @@
         "support.class",
         "storage.type.primitive",
         "storage.type.built-in"
-      ],
-      "settings": {
-        "foreground": "#b58900"
-      }
-    },
-    {
-      "name": "Storage class / modifier",
-      "scope": [
-        "storage.type"
       ],
       "settings": {
         "foreground": "#b58900"
@@ -996,14 +979,16 @@
         "meta.brace",
         "punctuation.separator.key-value",
         "punctuation.definition.parameters",
+        "punctuation.definition.attribute",
         "punctuation.definition.binding-pattern",
         "punctuation.definition.begin.bracket",
         "punctuation.definition.end.bracket",
         "punctuation.definition.list",
         "punctuation.definition.arguments",
+        "punctuation.definition.template-expression",
         "punctuation.curlybrace",
         "punctuation.parenthesis",
-        "meta.attribute"
+        "meta.attribute.php"
       ],
       "settings": {
         "foreground": "#cb4b16"
@@ -1253,6 +1238,39 @@
       ],
       "settings": {
         "foreground": "#839496"
+      }
+    },
+    {
+      "scope": "token.info-token",
+      "settings": {
+        "foreground": "#268bd2"
+      }
+    },
+    {
+      "scope": "token.warn-token",
+      "settings": {
+        "foreground": "#b58900"
+      }
+    },
+    {
+      "scope": "token.error-token",
+      "settings": {
+        "foreground": "#dc322f"
+      }
+    },
+    {
+      "scope": "token.debug-token",
+      "settings": {
+        "foreground": "#cb4b16"
+      }
+    },
+    {
+      "name": "entity.name.namespace",
+      "scope": [
+        "entity.name.namespace.rust"
+      ],
+      "settings": {
+        "foreground": "#268bd2"
       }
     }
   ]

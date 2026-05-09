@@ -60,9 +60,14 @@ export function buildSyntax(v: ResolvedVariant): SyntaxResult {
 	const statement = p.green // Statement group
 	const preproc = p.red // PreProc group
 	const type_ = p.yellow // Type group
-	const function_ = p.blue // Function group
 	const special = p.orange // Special group
+	const underlined = p.violet // Underlined or emphasized text
+	const function_ = p.blue // Function group
 	const variable = v.fg // @variable -> base0 (explicit in Lua)
+	const error = p.red
+	const warning = p.yellow
+	const information = p.blue
+	const debug = p.orange
 
 	// ---------------------------------------------------------------------------
 	// TextMate tokenColors
@@ -167,15 +172,7 @@ export function buildSyntax(v: ResolvedVariant): SyntaxResult {
 				"keyword.operator.in",
 				"keyword.operator.instanceof",
 				"keyword.other",
-				"storage.type.class",
-				"storage.type.const",
-				"storage.type.function",
-				"storage.type.interface",
-				"storage.type.enum",
-				"storage.type.namespace",
-				"storage.type.module",
-				"storage.type.import",
-				"storage.type.package",
+				"storage.type",
 				"storage.modifier",
 			],
 			settings: { foreground: statement },
@@ -239,13 +236,6 @@ export function buildSyntax(v: ResolvedVariant): SyntaxResult {
 			settings: { foreground: type_ },
 		},
 
-		// StorageClass -> Type -> yellow
-		{
-			name: "Storage class / modifier",
-			scope: ["storage.type"],
-			settings: { foreground: type_ },
-		},
-
 		// -------------------------------------------------------------------------
 		// Identifiers -- Identifier -> blue
 		// (field, namespace, attribute, property, @namespace, @symbol)
@@ -261,6 +251,7 @@ export function buildSyntax(v: ResolvedVariant): SyntaxResult {
 				"entity.name.tag.yaml",
 				"support.type.property-name",
 				"support.attribute",
+				"entity.name.namespace",
 			],
 			settings: { foreground: identifier },
 		},
@@ -334,14 +325,16 @@ export function buildSyntax(v: ResolvedVariant): SyntaxResult {
 				"meta.brace",
 				"punctuation.separator.key-value",
 				"punctuation.definition.parameters",
+				"punctuation.definition.attribute",
 				"punctuation.definition.binding-pattern",
 				"punctuation.definition.begin.bracket",
 				"punctuation.definition.end.bracket",
 				"punctuation.definition.list",
 				"punctuation.definition.arguments",
+				"punctuation.definition.template-expression",
 				"punctuation.curlybrace",
 				"punctuation.parenthesis",
-				"meta.attribute",
+				"meta.attribute.php",
 			],
 			settings: { foreground: special },
 		},
@@ -422,7 +415,7 @@ export function buildSyntax(v: ResolvedVariant): SyntaxResult {
 		{
 			name: "Markup underline -- @text.underline -> Underlined -> violet",
 			scope: ["markup.underline"],
-			settings: { foreground: p.violet, fontStyle: "underline" },
+			settings: { foreground: underlined, fontStyle: "underline" },
 		},
 		{
 			name: "Markup strikethrough -- Strikethrough -> base01",
@@ -437,7 +430,7 @@ export function buildSyntax(v: ResolvedVariant): SyntaxResult {
 		{
 			name: "Markup link URI -- @text.uri -> Underlined -> violet",
 			scope: ["markup.underline.link", "meta.link", "string.other.link"],
-			settings: { foreground: p.violet, fontStyle: "underline" },
+			settings: { foreground: underlined, fontStyle: "underline" },
 		},
 		{
 			name: "Markup link title",
@@ -523,6 +516,34 @@ export function buildSyntax(v: ResolvedVariant): SyntaxResult {
 			scope: ["meta.embedded"],
 			settings: { foreground: v.fgSubtle },
 		},
+
+		// -------------------------------------------------------------------------
+		// Diagnostic Tokens
+		// -------------------------------------------------------------------------
+		{
+			scope: "token.info-token",
+			settings: {
+				foreground: information,
+			},
+		},
+		{
+			scope: "token.warn-token",
+			settings: {
+				foreground: warning,
+			},
+		},
+		{
+			scope: "token.error-token",
+			settings: {
+				foreground: error,
+			},
+		},
+		{
+			scope: "token.debug-token",
+			settings: {
+				foreground: debug,
+			},
+		},
 	]
 
 	// ---------------------------------------------------------------------------
@@ -532,7 +553,6 @@ export function buildSyntax(v: ResolvedVariant): SyntaxResult {
 	// Format: "type" | "type.modifier" | "type:language"
 	// ---------------------------------------------------------------------------
 	const semanticTokenColors: Record<string, string | { foreground: string; fontStyle?: string }> = {
-		// Types -- @lsp.type.{type,class,enum,interface,struct,typeParameter} -> Type -> yellow
 		type: type_,
 		"type.declaration": type_,
 		class: type_,
@@ -542,65 +562,29 @@ export function buildSyntax(v: ResolvedVariant): SyntaxResult {
 		struct: type_,
 		typeParameter: type_,
 		namespace: identifier,
-
-		// Functions -- @lsp.type.function -> Function -> blue
+		builtinConstant: type_,
 		function: function_,
 		"function.declaration": function_,
 		method: function_,
 		"method.declaration": function_,
-
-		// Variables -- @lsp.type.variable -> TSVariable -> @variable -> base0
 		variable: variable,
-		"variable.readonly": constant, // treat readonly as constant -> cyan
-
-		// Parameters -- @lsp.type.parameter -> Special -> orange
 		parameter: special,
-
-		// Properties -- @lsp.type.property -> TSProperty -> TSField -> Identifier -> blue
 		property: identifier,
 		"property.readonly": constant,
-
-		// Enum members -- @lsp.type.enumMember -> TSProperty -> blue
 		enumMember: identifier,
-
-		// Events -- @lsp.type.events -> Label -> Statement -> green
 		event: statement,
-
-		// Keywords -- @lsp.type.keyword -> Keyword -> Statement -> green
 		keyword: statement,
-
-		// Modifiers -- @lsp.type.modifier -> Operator -> Statement -> green
 		modifier: statement,
-
-		// Macros -- @lsp.type.function (macros via @function.macro -> Macro -> PreProc -> red)
 		macro: preproc,
-
-		// Comments -- @lsp.type.comment -> Comment -> base01, italic
 		comment: { foreground: comment, fontStyle: "italic" },
-
-		// Strings -- @lsp.type.string -> String -> Text -> cyan
 		string: constant,
-
-		// Numbers -- @lsp.type.number -> Number -> Constant -> cyan
 		number: constant,
-
-		// Regexp -- @lsp.type.regexp -> TSStringRegex -> Constant -> cyan
 		regexp: constant,
-
-		// Operators -- @lsp.type.operator -> Operator -> Statement -> green
 		operator: statement,
-
-		// Labels
 		label: statement,
-
-		// Decorators / attributes -> Identifier -> blue
 		decorator: identifier,
-
-		// Self/this -> Special -> orange (@variable.builtin -> Special)
 		selfParameter: special,
 		selfKeyword: special,
-
-		// Built-in types (null, undefined, true, false) -> @constant.builtin -> Type -> yellow
 		builtinType: type_,
 	}
 

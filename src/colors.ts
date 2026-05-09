@@ -120,21 +120,21 @@ export interface ResolvedVariant {
 	// ------------------------------------------------------------------
 	// Background layers
 	// ------------------------------------------------------------------
-	bg: string         // primary background (base03 dark / base3 light)
-	bgBright: string   // secondary background, hover/active surfaces (base02 / base2)
+	bg: string // primary background (base03 dark / base3 light)
+	bgBright: string // secondary background, hover/active surfaces (base02 / base2)
 
 	// ------------------------------------------------------------------
 	// Foreground layers
 	// ------------------------------------------------------------------
-	fg: string         // default text on bg (base0 dark / base00 light)
-	fgBright: string   // text on bgBright surfaces, hover/active text (base1 dark / base01 light)
-	fgSubtle: string   // NonText equivalent, rarely used (base00 dark / base0 light)
-	fgDim: string      // de-emphasized: comments, inactive, line numbers (base01 dark / base1 light)
+	fg: string // default text on bg (base0 dark / base00 light)
+	fgBright: string // text on bgBright surfaces, hover/active text (base1 dark / base01 light)
+	fgSubtle: string // NonText equivalent, rarely used (base00 dark / base0 light)
+	fgDim: string // de-emphasized: comments, inactive, line numbers (base01 dark / base1 light)
 
 	// ------------------------------------------------------------------
 	// Borders / separators
 	// ------------------------------------------------------------------
-	border: string       // default border on bg surfaces (base02 dark / base2 light)
+	border: string // default border on bg surfaces (base02 dark / base2 light)
 	borderSubtle: string // optional border on bgBright surfaces (base00 dark / base0 light)
 	borderBright: string // active/focused border (cyan)
 
@@ -169,13 +169,13 @@ export function makePalette(variant: Variant): ResolvedVariant {
 		case "dark":
 			return {
 				palette: p,
-				bg: p.base03,      // primary background
+				bg: p.base03, // primary background
 				bgBright: p.base02, // secondary background, hover/active backgrounds
-				fg: p.base0,       // text on base03, default foreground
+				fg: p.base0, // text on base03, default foreground
 				fgBright: p.base1, // text on base02, hover/active text
 				fgSubtle: p.base00, // NonText equivalent
-				fgDim: p.base01,   // de-emphasized: comments, inactive, line numbers
-				border: p.base02,  // borders on base03
+				fgDim: p.base01, // de-emphasized: comments, inactive, line numbers
+				border: p.base02, // borders on base03
 				borderSubtle: p.base00, // optional borders on base02
 				borderBright: p.cyan, // active borders
 				...accents,
@@ -184,13 +184,13 @@ export function makePalette(variant: Variant): ResolvedVariant {
 		case "light":
 			return {
 				palette: p,
-				bg: p.base3,       // primary background
+				bg: p.base3, // primary background
 				bgBright: p.base2, // secondary background, hover/active backgrounds
-				fg: p.base00,      // text on base3, default foreground
+				fg: p.base00, // text on base3, default foreground
 				fgBright: p.base01, // text on base2, hover/active text
 				fgSubtle: p.base0, // NonText equivalent
-				fgDim: p.base1,    // de-emphasized: comments, inactive, line numbers
-				border: p.base2,   // borders on base3
+				fgDim: p.base1, // de-emphasized: comments, inactive, line numbers
+				border: p.base2, // borders on base3
 				borderSubtle: p.base0, // optional borders on base2
 				borderBright: p.cyan, // active borders
 				...accents,
@@ -200,13 +200,13 @@ export function makePalette(variant: Variant): ResolvedVariant {
 		case "osaka":
 			return {
 				palette: p,
-				bg: p.base03,      // primary background
+				bg: p.base03, // primary background
 				bgBright: p.base02, // secondary background, hover/active backgrounds
-				fg: p.base0,       // text on base03, default foreground
+				fg: p.base0, // text on base03, default foreground
 				fgBright: p.base1, // text on base02, hover/active text
 				fgSubtle: p.base00, // NonText equivalent
-				fgDim: p.base01,   // de-emphasized: comments, inactive, line numbers
-				border: p.base02,  // borders on base03
+				fgDim: p.base01, // de-emphasized: comments, inactive, line numbers
+				border: p.base02, // borders on base03
 				borderSubtle: p.base00, // optional borders on base02
 				borderBright: p.cyan, // active borders
 				...accents,
