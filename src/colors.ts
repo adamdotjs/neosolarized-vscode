@@ -14,10 +14,11 @@
  *
  * This file exports:
  *   - `palette`  -- the raw Solarized hex values
- *   - `syntax`   -- resolved semantic/syntax color roles
- *   - `ui`       -- resolved workbench/editor UI color roles
  *   - `makePalette(variant)` -- returns a variant-resolved color set
+ *   - `makeUIColors(variant)` -- extends makePalette with workbench color roles
  */
+
+import { alpha } from "./utils/color"
 
 // ---------------------------------------------------------------------------
 // Raw Solarized Palette
@@ -44,7 +45,7 @@ export const palette = {
 	violet: "#6c71c4",
 	blue: "#268bd2",
 	cyan: "#2aa198",
-	green: "#859900",
+	green: "#719e07",
 } as const
 
 /**
@@ -119,21 +120,22 @@ export interface ResolvedVariant {
 	// ------------------------------------------------------------------
 	// Background layers
 	// ------------------------------------------------------------------
-	bg: string // primary background (base03 dark / base3 light)
-	bgBright: string // secondary background, hover/active surfaces (base02 / base2)
+	bg: string         // primary background (base03 dark / base3 light)
+	bgBright: string   // secondary background, hover/active surfaces (base02 / base2)
 
 	// ------------------------------------------------------------------
 	// Foreground layers
 	// ------------------------------------------------------------------
-	fg: string // default text on bg (base0 dark / base00 light)
-	fgBright: string // text on bgBright surfaces, hover/active text (base1 dark / base01 light)
-	fgSubtle: string // NonText equivalent, rarely used (base00 dark / base0 light)
-	fgDim: string // de-emphasized: comments, inactive, line numbers (base01 dark / base1 light)
+	fg: string         // default text on bg (base0 dark / base00 light)
+	fgBright: string   // text on bgBright surfaces, hover/active text (base1 dark / base01 light)
+	fgSubtle: string   // NonText equivalent, rarely used (base00 dark / base0 light)
+	fgDim: string      // de-emphasized: comments, inactive, line numbers (base01 dark / base1 light)
 
 	// ------------------------------------------------------------------
 	// Borders / separators
 	// ------------------------------------------------------------------
-	border: string // default border on bg surfaces (base02 dark / base2 light)
+	border: string       // default border on bg surfaces (base02 dark / base2 light)
+	borderSubtle: string // optional border on bgBright surfaces (base00 dark / base0 light)
 	borderBright: string // active/focused border (cyan)
 
 	// ------------------------------------------------------------------
@@ -167,13 +169,14 @@ export function makePalette(variant: Variant): ResolvedVariant {
 		case "dark":
 			return {
 				palette: p,
-				bg: p.base03, // primary background
+				bg: p.base03,      // primary background
 				bgBright: p.base02, // secondary background, hover/active backgrounds
-				fg: p.base0, // text on base03, default foreground
+				fg: p.base0,       // text on base03, default foreground
 				fgBright: p.base1, // text on base02, hover/active text
 				fgSubtle: p.base00, // NonText equivalent
-				fgDim: p.base01, // de-emphasized: comments, inactive, line numbers
-				border: p.base02, // borders on base03
+				fgDim: p.base01,   // de-emphasized: comments, inactive, line numbers
+				border: p.base02,  // borders on base03
+				borderSubtle: p.base00, // optional borders on base02
 				borderBright: p.cyan, // active borders
 				...accents,
 			}
@@ -181,13 +184,14 @@ export function makePalette(variant: Variant): ResolvedVariant {
 		case "light":
 			return {
 				palette: p,
-				bg: p.base3, // primary background
+				bg: p.base3,       // primary background
 				bgBright: p.base2, // secondary background, hover/active backgrounds
-				fg: p.base00, // text on base3, default foreground
+				fg: p.base00,      // text on base3, default foreground
 				fgBright: p.base01, // text on base2, hover/active text
 				fgSubtle: p.base0, // NonText equivalent
-				fgDim: p.base1, // de-emphasized: comments, inactive, line numbers
-				border: p.base2, // borders on base3
+				fgDim: p.base1,    // de-emphasized: comments, inactive, line numbers
+				border: p.base2,   // borders on base3
+				borderSubtle: p.base0, // optional borders on base2
 				borderBright: p.cyan, // active borders
 				...accents,
 			}
@@ -196,13 +200,14 @@ export function makePalette(variant: Variant): ResolvedVariant {
 		case "osaka":
 			return {
 				palette: p,
-				bg: p.base03, // primary background
+				bg: p.base03,      // primary background
 				bgBright: p.base02, // secondary background, hover/active backgrounds
-				fg: p.base0, // text on base03, default foreground
+				fg: p.base0,       // text on base03, default foreground
 				fgBright: p.base1, // text on base02, hover/active text
 				fgSubtle: p.base00, // NonText equivalent
-				fgDim: p.base01, // de-emphasized: comments, inactive, line numbers
-				border: p.base02, // borders on base03
+				fgDim: p.base01,   // de-emphasized: comments, inactive, line numbers
+				border: p.base02,  // borders on base03
+				borderSubtle: p.base00, // optional borders on base02
 				borderBright: p.cyan, // active borders
 				...accents,
 			}
@@ -212,30 +217,37 @@ export function makePalette(variant: Variant): ResolvedVariant {
 // ---------------------------------------------------------------------------
 // UI / Workbench color roles
 // ---------------------------------------------------------------------------
+//
+// Only tokens that represent a genuinely distinct design decision live here.
+// Tokens that are pure structural aliases (e.g. "sidebar border = border")
+// are referenced directly as ui.border / ui.bgBright etc. in workbench files.
+// ---------------------------------------------------------------------------
 
 export interface UIColors {
-	editorBg: string
-	editorFg: string
-	editorLineHighlight: string
+	// Editor surface
 	editorCursor: string
+	editorLineHighlight: string
 	editorSelection: string
 	editorSelectionHL: string
 
+	// Line numbers
 	lineNr: string
 	lineNrActive: string
 
-	whitespace: string
-	indentGuide: string
+	// Whitespace / indent guides
 	indentGuideActive: string
 
+	// Bracket matching (MatchParen -> red fg, base01 bg)
 	matchBracketBg: string
 	matchBracketFg: string
 
+	// Search highlights (Search -> yellow, IncSearch -> orange)
 	findMatch: string
 	findMatchBorder: string
 	findMatchHL: string
 	findMatchHLBorder: string
 
+	// Diff editor
 	diffAddedBg: string
 	diffAddedFg: string
 	diffModifiedBg: string
@@ -243,88 +255,77 @@ export interface UIColors {
 	diffRemovedBg: string
 	diffRemovedFg: string
 
+	// Git decorations (explorer)
 	gitAdded: string
 	gitModified: string
 	gitDeleted: string
 	gitUntracked: string
 	gitIgnored: string
 
+	// Diagnostics
 	diagError: string
 	diagWarn: string
 	diagInfo: string
 	diagHint: string
 
-	statusBarBg: string
-	statusBarFg: string
+	// Status bar (uses bgBright surface)
 	statusBarBgDebug: string
 	statusBarBgNoFolder: string
 
-	activityBarBg: string
-	activityBarFg: string
+	// Activity bar badges
 	activityBarBadgeBg: string
 	activityBarBadgeFg: string
 
-	sideBarBg: string
-	sideBarFg: string
+	// Side bar
 	sideBarHeaderFg: string
-	sideBarBorder: string
 
-	tabActiveBg: string
+	// Tabs
 	tabActiveFg: string
-	tabInactiveBg: string
 	tabInactiveFg: string
-	tabBorder: string
 	tabActiveBorderTop: string
 
-	titleBarActiveBg: string
+	// Title bar
 	titleBarActiveFg: string
-	titleBarInactiveBg: string
 	titleBarInactiveFg: string
 
-	panelBg: string
-	panelBorder: string
+	// Panel title
 	panelTitleActiveFg: string
 	panelTitleActiveBorder: string
 
+	// Popup / widget (bgBright surface)
 	popupBg: string
 	popupFg: string
-	popupBorder: string
 	popupSelectionBg: string
 	popupSelectionFg: string
 
-	inputBg: string
-	inputFg: string
-	inputBorder: string
+	// Input (bgBright surface)
 	inputBorderFocus: string
 	inputPlaceholder: string
 
+	// Buttons
 	buttonBg: string
 	buttonFg: string
 	buttonHoverBg: string
 
+	// Scrollbar
 	scrollbarSlider: string
 	scrollbarSliderHover: string
 	scrollbarSliderActive: string
 
+	// Minimap
 	minimapFindMatch: string
 	minimapSelection: string
 
+	// Breadcrumbs
 	breadcrumbFg: string
 	breadcrumbFocusFg: string
-	breadcrumbBg: string
 
-	peekViewBorder: string
-	peekViewBg: string
-	peekViewTitleBg: string
+	// Peek view
 	peekViewMatchHL: string
 	peekViewResultsMatchHL: string
 
-	notifBg: string
-	notifFg: string
-	notifBorder: string
-
+	// Global
 	focusBorder: string
-	selectionBg: string
 	progressBarBg: string
 }
 
@@ -334,39 +335,35 @@ export function makeUIColors(v: ResolvedVariant): UIColors & ResolvedVariant {
 	return {
 		...v,
 
-		// Editor core
-		editorBg: v.bg,
-		editorFg: v.fg,
-		editorLineHighlight: v.bgBright,
+		// Editor surface
 		editorCursor: p.base0,
+		editorLineHighlight: v.bgBright,
 		editorSelection: v.bgBright,
-		editorSelectionHL: v.bgBright + "80",
+		editorSelectionHL: alpha(v.bgBright, 50),
 
 		// Line numbers
 		lineNr: v.fgDim,
 		lineNrActive: v.fgBright,
 
-		// Whitespace / indentation
-		whitespace: v.bgBright,
-		indentGuide: v.bgBright,
+		// Indent guide (active only -- inactive uses ui.bgBright directly)
 		indentGuideActive: v.fgDim,
 
-		// Bracket matching
+		// Bracket matching (MatchParen -> red fg, base01 bg)
 		matchBracketBg: v.fgDim,
 		matchBracketFg: p.red,
 
-		// Search
-		findMatch: p.yellow + "50",
+		// Search highlights (Search -> yellow, IncSearch -> orange)
+		findMatch: alpha(p.yellow, 31),
 		findMatchBorder: p.yellow,
-		findMatchHL: p.orange + "50",
+		findMatchHL: alpha(p.orange, 31),
 		findMatchHLBorder: p.orange,
 
 		// Diff
-		diffAddedBg: p.green + "22",
+		diffAddedBg: alpha(p.green, 13),
 		diffAddedFg: p.green,
-		diffModifiedBg: p.yellow + "22",
+		diffModifiedBg: alpha(p.yellow, 13),
 		diffModifiedFg: p.yellow,
-		diffRemovedBg: p.red + "22",
+		diffRemovedBg: alpha(p.red, 13),
 		diffRemovedFg: p.red,
 
 		// Git decorations
@@ -382,55 +379,37 @@ export function makeUIColors(v: ResolvedVariant): UIColors & ResolvedVariant {
 		diagInfo: p.cyan,
 		diagHint: p.green,
 
-		// Status bar -- flat bg; fgBright (Solarized step-up)
-		statusBarBg: v.bgBright,
-		statusBarFg: v.fgBright,
+		// Status bar
 		statusBarBgDebug: p.orange,
 		statusBarBgNoFolder: v.bg,
 
-		// Activity bar -- flat bg, primary fg
-		activityBarBg: v.bg,
-		activityBarFg: v.fg,
+		// Activity bar badges
 		activityBarBadgeBg: p.cyan,
 		activityBarBadgeFg: v.bg,
 
-		// Side bar -- flat bg, primary fg
-		sideBarBg: v.bg,
-		sideBarFg: v.fg,
+		// Side bar
 		sideBarHeaderFg: v.fgDim,
-		sideBarBorder: v.border,
 
-		// Tabs -- flat bg
-		tabActiveBg: v.bg,
+		// Tabs
 		tabActiveFg: v.fgBright,
-		tabInactiveBg: v.bgBright,
-		tabInactiveFg: v.fgSubtle,
-		tabBorder: v.border,
+		tabInactiveFg: v.fgDim,
 		tabActiveBorderTop: p.cyan,
 
-		// Title bar -- flat bg; fgBright
-		titleBarActiveBg: v.bg,
+		// Title bar
 		titleBarActiveFg: v.fg,
-		titleBarInactiveBg: v.bg,
 		titleBarInactiveFg: v.fgSubtle,
 
-		// Panel -- flat bg
-		panelBg: v.bg,
-		panelBorder: v.border,
+		// Panel title
 		panelTitleActiveFg: p.yellow,
 		panelTitleActiveBorder: p.cyan,
 
-		// Popup / widget -- bgBright surface; fgBright
+		// Popup / widget (bgBright surface; fgBright text)
 		popupBg: v.bgBright,
 		popupFg: v.fgBright,
-		popupBorder: v.border,
 		popupSelectionBg: v.fgDim,
 		popupSelectionFg: v.bg,
 
-		// Input -- bgBright surface; fgBright
-		inputBg: v.bgBright,
-		inputFg: v.fgBright,
-		inputBorder: v.border,
+		// Input (bgBright surface)
 		inputBorderFocus: p.cyan,
 		inputPlaceholder: v.fgSubtle,
 
@@ -440,9 +419,9 @@ export function makeUIColors(v: ResolvedVariant): UIColors & ResolvedVariant {
 		buttonHoverBg: p.blue,
 
 		// Scrollbar
-		scrollbarSlider: v.fgDim + "40",
-		scrollbarSliderHover: v.fgDim + "70",
-		scrollbarSliderActive: v.fgDim + "99",
+		scrollbarSlider: alpha(v.fgDim, 25),
+		scrollbarSliderHover: alpha(v.fgDim, 44),
+		scrollbarSliderActive: alpha(v.fgDim, 60),
 
 		// Minimap
 		minimapFindMatch: p.orange,
@@ -451,23 +430,13 @@ export function makeUIColors(v: ResolvedVariant): UIColors & ResolvedVariant {
 		// Breadcrumbs
 		breadcrumbFg: v.fgDim,
 		breadcrumbFocusFg: v.fg,
-		breadcrumbBg: v.bg,
 
-		// Peek view -- bgBright surface
-		peekViewBorder: p.cyan,
-		peekViewBg: v.bgBright,
-		peekViewTitleBg: v.bgBright,
-		peekViewMatchHL: p.orange + "50",
-		peekViewResultsMatchHL: p.cyan + "40",
+		// Peek view
+		peekViewMatchHL: alpha(p.orange, 31),
+		peekViewResultsMatchHL: alpha(p.cyan, 25),
 
-		// Notifications -- bgBright surface; fgBright
-		notifBg: v.bgBright,
-		notifFg: v.fgBright,
-		notifBorder: v.border,
-
-		// Misc
-		focusBorder: p.cyan,
-		selectionBg: v.bgBright,
+		// Global
+		focusBorder: v.borderBright,
 		progressBarBg: p.cyan,
 	}
 }

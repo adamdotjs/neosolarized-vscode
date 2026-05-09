@@ -5,14 +5,15 @@
  * code lens, lightbulb, sticky scroll, inline hints, ghost text
  */
 import type { ResolvedVariant, UIColors } from "../colors"
+import { alpha } from "../utils/color"
 
 type Theme = UIColors & ResolvedVariant
 
 export function editor(ui: Theme): Record<string, string> {
 	return {
 		// Core
-		"editor.background": ui.editorBg,
-		"editor.foreground": ui.editorFg,
+		"editor.background": ui.bg,
+		"editor.foreground": ui.fg,
 
 		// Line highlight (CursorLine -> base02)
 		"editor.lineHighlightBackground": ui.editorLineHighlight,
@@ -20,21 +21,21 @@ export function editor(ui: Theme): Record<string, string> {
 
 		// Cursor
 		"editorCursor.foreground": ui.editorCursor,
-		"editorCursor.background": ui.editorBg,
+		"editorCursor.background": ui.bg,
 
 		// Selections / word highlights (Visual -> base02)
 		"editor.selectionBackground": ui.editorSelection,
-		"editor.selectionForeground": ui.editorFg,
+		"editor.selectionForeground": ui.fg,
 		"editor.inactiveSelectionBackground": ui.editorSelectionHL,
 		"editor.selectionHighlightBackground": ui.editorSelectionHL,
 		"editor.selectionHighlightBorder": "#00000000",
 
 		// Word under cursor
-		"editor.wordHighlightBackground": ui.bgBright + "80",
-		"editor.wordHighlightBorder": ui.border + "60",
+		"editor.wordHighlightBackground": alpha(ui.bgBright, 50),
+		"editor.wordHighlightBorder": alpha(ui.border, 38),
 		"editor.wordHighlightStrongBackground": ui.bgBright,
 		"editor.wordHighlightStrongBorder": ui.border,
-		"editor.wordHighlightTextBackground": ui.bgBright + "60",
+		"editor.wordHighlightTextBackground": alpha(ui.bgBright, 38),
 		"editor.wordHighlightTextBorder": "#00000000",
 
 		// Search / find (Search -> yellow, IncSearch -> orange)
@@ -42,30 +43,30 @@ export function editor(ui: Theme): Record<string, string> {
 		"editor.findMatchBorder": ui.findMatchBorder,
 		"editor.findMatchHighlightBackground": ui.findMatchHL,
 		"editor.findMatchHighlightBorder": ui.findMatchHLBorder,
-		"editor.findRangeHighlightBackground": ui.bgBright + "60",
+		"editor.findRangeHighlightBackground": alpha(ui.bgBright, 38),
 		"editor.findRangeHighlightBorder": "#00000000",
-		"editor.rangeHighlightBackground": ui.bgBright + "40",
+		"editor.rangeHighlightBackground": alpha(ui.bgBright, 25),
 		"editor.rangeHighlightBorder": "#00000000",
 		"editor.symbolHighlightBackground": ui.findMatchHL,
 		"editor.symbolHighlightBorder": ui.findMatchHLBorder,
 
 		// Whitespace (NonText -> base00)
-		"editorWhitespace.foreground": ui.whitespace,
+		"editorWhitespace.foreground": ui.bgBright,
 
 		// Indent guides
-		"editorIndentGuide.background1": ui.indentGuide,
-		"editorIndentGuide.activeBackground1": ui.indentGuideActive,
+		"editorIndentGuide.background1": ui.bgBright,
+		"editorIndentGuide.activeBackground1": ui.bgBrightActive,
 
 		// Rulers
-		"editorRuler.foreground": ui.indentGuide,
+		"editorRuler.foreground": ui.bgBright,
 
 		// Line numbers (LineNr -> base01, CursorLineNr -> base1)
 		"editorLineNumber.foreground": ui.lineNr,
 		"editorLineNumber.activeForeground": ui.lineNrActive,
-		"editorLineNumber.dimmedForeground": ui.lineNr + "80",
+		"editorLineNumber.dimmedForeground": alpha(ui.lineNr, 50),
 
 		// Matching brackets (MatchParen -> red fg, base01 bg)
-		"editorBracketMatch.background": ui.matchBracketBg + "60",
+		"editorBracketMatch.background": alpha(ui.matchBracketBg, 38),
 		"editorBracketMatch.border": ui.matchBracketFg,
 
 		// Bracket pair colorization -- map to theme accents
@@ -78,18 +79,18 @@ export function editor(ui: Theme): Record<string, string> {
 		"editorBracketHighlight.unexpectedBracket.foreground": ui.red,
 
 		// Bracket pair guides
-		"editorBracketPairGuide.activeBackground1": ui.cyan + "40",
-		"editorBracketPairGuide.activeBackground2": ui.yellow + "40",
-		"editorBracketPairGuide.activeBackground3": ui.magenta + "40",
-		"editorBracketPairGuide.activeBackground4": ui.green + "40",
-		"editorBracketPairGuide.activeBackground5": ui.orange + "40",
-		"editorBracketPairGuide.activeBackground6": ui.violet + "40",
-		"editorBracketPairGuide.background1": ui.indentGuide,
-		"editorBracketPairGuide.background2": ui.indentGuide,
-		"editorBracketPairGuide.background3": ui.indentGuide,
-		"editorBracketPairGuide.background4": ui.indentGuide,
-		"editorBracketPairGuide.background5": ui.indentGuide,
-		"editorBracketPairGuide.background6": ui.indentGuide,
+		"editorBracketPairGuide.activeBackground1": alpha(ui.cyan, 25),
+		"editorBracketPairGuide.activeBackground2": alpha(ui.yellow, 25),
+		"editorBracketPairGuide.activeBackground3": alpha(ui.magenta, 25),
+		"editorBracketPairGuide.activeBackground4": alpha(ui.green, 25),
+		"editorBracketPairGuide.activeBackground5": alpha(ui.orange, 25),
+		"editorBracketPairGuide.activeBackground6": alpha(ui.violet, 25),
+		"editorBracketPairGuide.background1": ui.bgBright,
+		"editorBracketPairGuide.background2": ui.bgBright,
+		"editorBracketPairGuide.background3": ui.bgBright,
+		"editorBracketPairGuide.background4": ui.bgBright,
+		"editorBracketPairGuide.background5": ui.bgBright,
+		"editorBracketPairGuide.background6": ui.bgBright,
 
 		// Code lens (subtle, uses comment color)
 		"editorCodeLens.foreground": ui.fgDim,
@@ -105,18 +106,18 @@ export function editor(ui: Theme): Record<string, string> {
 		// Snippets
 		"editor.snippetTabstopHighlightBackground": ui.bgBright,
 		"editor.snippetTabstopHighlightBorder": ui.border,
-		"editor.snippetFinalTabstopHighlightBackground": ui.focusBorder + "30",
+		"editor.snippetFinalTabstopHighlightBackground": alpha(ui.focusBorder, 19),
 		"editor.snippetFinalTabstopHighlightBorder": ui.focusBorder,
 
 		// Hover widget (NormalFloat -> base02)
 		"editorHoverWidget.background": ui.popupBg,
 		"editorHoverWidget.foreground": ui.popupFg,
-		"editorHoverWidget.border": ui.popupBorder,
+		"editorHoverWidget.border": ui.border,
 		"editorHoverWidget.highlightForeground": ui.cyan,
 		"editorHoverWidget.statusBarBackground": ui.bgBright,
 
 		// Ghost text (inline suggestions)
-		"editorGhostText.foreground": ui.fgDim + "80",
+		"editorGhostText.foreground": alpha(ui.fgDim, 50),
 		"editorGhostText.background": "#00000000",
 		"editorGhostText.border": "#00000000",
 
@@ -129,13 +130,13 @@ export function editor(ui: Theme): Record<string, string> {
 		"editorInlayHint.parameterBackground": ui.bgBright,
 
 		// Sticky scroll
-		"editorStickyScroll.background": ui.editorBg,
+		"editorStickyScroll.background": ui.bg,
 		"editorStickyScroll.border": ui.border,
 		"editorStickyScroll.shadow": "#00000033",
 		"editorStickyScrollHover.background": ui.bgBright,
 
 		// Gutter decorations (sign column -- SignColumn -> base0 on none)
-		"editorGutter.background": ui.editorBg,
+		"editorGutter.background": ui.bg,
 		"editorGutter.addedBackground": ui.gitAdded,
 		"editorGutter.modifiedBackground": ui.gitModified,
 		"editorGutter.deletedBackground": ui.gitDeleted,
@@ -144,22 +145,22 @@ export function editor(ui: Theme): Record<string, string> {
 		"editorGutter.foldingControlForeground": ui.fgDim,
 
 		// Overview ruler (minimap-adjacent)
-		"editorOverviewRuler.border": ui.border + "40",
+		"editorOverviewRuler.border": alpha(ui.border, 25),
 		"editorOverviewRuler.findMatchForeground": ui.findMatchBorder,
-		"editorOverviewRuler.rangeHighlightForeground": ui.cyan + "80",
+		"editorOverviewRuler.rangeHighlightForeground": alpha(ui.cyan, 50),
 		"editorOverviewRuler.selectionHighlightForeground": ui.editorSelection,
-		"editorOverviewRuler.wordHighlightForeground": ui.fgDim + "80",
-		"editorOverviewRuler.wordHighlightStrongForeground": ui.editorFg + "80",
-		"editorOverviewRuler.wordHighlightTextForeground": ui.fgDim + "60",
-		"editorOverviewRuler.addedForeground": ui.gitAdded + "99",
-		"editorOverviewRuler.modifiedForeground": ui.gitModified + "99",
-		"editorOverviewRuler.deletedForeground": ui.gitDeleted + "99",
+		"editorOverviewRuler.wordHighlightForeground": alpha(ui.fgDim, 50),
+		"editorOverviewRuler.wordHighlightStrongForeground": alpha(ui.fg, 50),
+		"editorOverviewRuler.wordHighlightTextForeground": alpha(ui.fgDim, 38),
+		"editorOverviewRuler.addedForeground": alpha(ui.gitAdded, 60),
+		"editorOverviewRuler.modifiedForeground": alpha(ui.gitModified, 60),
+		"editorOverviewRuler.deletedForeground": alpha(ui.gitDeleted, 60),
 		"editorOverviewRuler.errorForeground": ui.diagError,
 		"editorOverviewRuler.warningForeground": ui.diagWarn,
 		"editorOverviewRuler.infoForeground": ui.diagInfo,
-		"editorOverviewRuler.bracketMatchForeground": ui.matchBracketFg + "80",
-		"editorOverviewRuler.inlineChatInserted": ui.gitAdded + "80",
-		"editorOverviewRuler.inlineChatRemoved": ui.gitDeleted + "80",
+		"editorOverviewRuler.bracketMatchForeground": alpha(ui.matchBracketFg, 50),
+		"editorOverviewRuler.inlineChatInserted": alpha(ui.gitAdded, 50),
+		"editorOverviewRuler.inlineChatRemoved": alpha(ui.gitDeleted, 50),
 
 		// Diff editor (DiffAdd/Change/Delete/Text)
 		"diffEditor.insertedTextBackground": ui.diffAddedBg,
@@ -172,11 +173,11 @@ export function editor(ui: Theme): Record<string, string> {
 		"diffEditor.gutterRemovedLineBackground": ui.diffRemovedBg,
 		"diffEditor.gutterInsertedLineForeground": ui.diffAddedFg,
 		"diffEditor.gutterRemovedLineForeground": ui.diffRemovedFg,
-		"diffEditor.diagonalFill": ui.border + "40",
-		"diffEditor.unchangedRegionBackground": ui.editorBg,
+		"diffEditor.diagonalFill": alpha(ui.border, 25),
+		"diffEditor.unchangedRegionBackground": ui.bg,
 		"diffEditor.unchangedRegionForeground": ui.fgDim,
-		"diffEditor.unchangedCodeBackground": ui.bgBright + "40",
-		"diffEditor.move.border": ui.blue + "60",
+		"diffEditor.unchangedCodeBackground": alpha(ui.bgBright, 25),
+		"diffEditor.move.border": alpha(ui.blue, 38),
 		"diffEditor.moveActive.border": ui.blue,
 
 		// Diff editor overview
@@ -184,7 +185,7 @@ export function editor(ui: Theme): Record<string, string> {
 		"diffEditorOverview.removedForeground": ui.diffRemovedFg,
 
 		// Multi-diff editor
-		"multiDiffEditor.background": ui.editorBg,
+		"multiDiffEditor.background": ui.bg,
 		"multiDiffEditor.border": ui.border,
 		"multiDiffEditor.headerBackground": ui.bgBright,
 
@@ -193,23 +194,23 @@ export function editor(ui: Theme): Record<string, string> {
 		"editor.foldPlaceholderForeground": ui.fgDim,
 
 		// Inline chat / AI edits
-		"inlineChatInput.background": ui.inputBg,
-		"inlineChatInput.border": ui.inputBorder,
+		"inlineChatInput.background": ui.bgBright,
+		"inlineChatInput.border": ui.border,
 		"inlineChatInput.focusBorder": ui.focusBorder,
 		"inlineChatInput.placeholderForeground": ui.inputPlaceholder,
 		"inlineChat.background": ui.popupBg,
-		"inlineChat.border": ui.popupBorder,
+		"inlineChat.border": ui.border,
 		"inlineChat.shadow": "#00000033",
-		"inlineChat.regionHighlight": ui.bgBright + "80",
+		"inlineChat.regionHighlight": alpha(ui.bgBright, 50),
 		"inlineChatDiff.inserted": ui.diffAddedBg,
 		"inlineChatDiff.removed": ui.diffRemovedBg,
 
 		// Merge editor
 		"mergeEditor.change.background": ui.diffModifiedBg,
 		"mergeEditor.change.word.background": ui.diffModifiedBg,
-		"mergeEditor.conflict.unhandledUnfocused.border": ui.diagWarn + "80",
+		"mergeEditor.conflict.unhandledUnfocused.border": alpha(ui.diagWarn, 50),
 		"mergeEditor.conflict.unhandledFocused.border": ui.diagWarn,
-		"mergeEditor.conflict.handledUnfocused.border": ui.diagInfo + "80",
+		"mergeEditor.conflict.handledUnfocused.border": alpha(ui.diagInfo, 50),
 		"mergeEditor.conflict.handledFocused.border": ui.diagInfo,
 		"mergeEditor.conflict.handled.minimapOverViewRuler": ui.diagInfo,
 		"mergeEditor.conflict.unhandled.minimapOverViewRuler": ui.diagWarn,

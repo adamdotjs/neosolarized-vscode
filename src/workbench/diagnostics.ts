@@ -2,6 +2,7 @@
  * Diagnostics, problems, testing, debug, and git decorations
  */
 import type { ResolvedVariant, UIColors } from "../colors"
+import { alpha } from "../utils/color"
 
 type Theme = UIColors & ResolvedVariant
 
@@ -30,21 +31,21 @@ export function diagnostics(ui: Theme): Record<string, string> {
 		// -----------------------------------------------------------------------
 		// Peek view (LspSaga / go-to-definition style)
 		// -----------------------------------------------------------------------
-		"peekView.border": ui.peekViewBorder,
-		"peekViewEditor.background": ui.peekViewBg,
+		"peekView.border": ui.cyan,
+		"peekViewEditor.background": ui.bgBright,
 		"peekViewEditor.matchHighlightBackground": ui.peekViewMatchHL,
 		"peekViewEditor.matchHighlightBorder": ui.orange,
-		"peekViewEditorGutter.background": ui.peekViewBg,
-		"peekViewEditorStickyScroll.background": ui.peekViewBg,
-		"peekViewResult.background": ui.peekViewTitleBg,
-		"peekViewResult.fileForeground": ui.editorFg,
+		"peekViewEditorGutter.background": ui.bgBright,
+		"peekViewEditorStickyScroll.background": ui.bgBright,
+		"peekViewResult.background": ui.bgBright,
+		"peekViewResult.fileForeground": ui.fg,
 		"peekViewResult.lineForeground": ui.fgDim,
 		"peekViewResult.matchHighlightBackground": ui.peekViewResultsMatchHL,
 		"peekViewResult.selectionBackground": ui.popupSelectionBg,
 		"peekViewResult.selectionForeground": ui.popupSelectionFg,
-		"peekViewTitle.background": ui.peekViewTitleBg,
+		"peekViewTitle.background": ui.bgBright,
 		"peekViewTitleDescription.foreground": ui.fgDim,
-		"peekViewTitleLabel.foreground": ui.editorFg,
+		"peekViewTitleLabel.foreground": ui.fg,
 
 		// -----------------------------------------------------------------------
 		// Git decorations (file explorer)
@@ -64,7 +65,7 @@ export function diagnostics(ui: Theme): Record<string, string> {
 		// Source control (SCM) view
 		// -----------------------------------------------------------------------
 		"scm.providerBorder": ui.border,
-		"scmGraph.historyItemHoverDefaultLabelForeground": ui.editorFg,
+		"scmGraph.historyItemHoverDefaultLabelForeground": ui.fg,
 		"scmGraph.historyItemHoverDefaultLabelBackground": ui.bgBright,
 		"scmGraph.historyItemHoverAdditionsForeground": ui.gitAdded,
 		"scmGraph.historyItemHoverDeletionsForeground": ui.gitDeleted,
@@ -77,12 +78,12 @@ export function diagnostics(ui: Theme): Record<string, string> {
 		// Debug
 		// -----------------------------------------------------------------------
 		"debugToolBar.background": ui.popupBg,
-		"debugToolBar.border": ui.popupBorder,
-		"editor.stackFrameHighlightBackground": ui.yellow + "30",
-		"editor.focusedStackFrameHighlightBackground": ui.green + "30",
+		"debugToolBar.border": ui.border,
+		"editor.stackFrameHighlightBackground": alpha(ui.yellow, 19),
+		"editor.focusedStackFrameHighlightBackground": alpha(ui.green, 19),
 		"editor.inlineValuesForeground": ui.fgDim,
-		"editor.inlineValuesBackground": ui.bgBright + "80",
-		"debugView.exceptionLabelBackground": ui.red + "40",
+		"editor.inlineValuesBackground": alpha(ui.bgBright, 50),
+		"debugView.exceptionLabelBackground": alpha(ui.red, 25),
 		"debugView.exceptionLabelForeground": ui.red,
 		"debugView.stateLabelBackground": ui.bgBright,
 		"debugView.stateLabelForeground": ui.cyan,
@@ -102,7 +103,7 @@ export function diagnostics(ui: Theme): Record<string, string> {
 		"debugIcon.breakpointDisabledForeground": ui.fgDim,
 		"debugIcon.breakpointUnverifiedForeground": ui.orange,
 		"debugIcon.breakpointCurrentStackframeForeground": ui.yellow,
-		"debugIcon.breakpointStackframeForeground": ui.yellow + "80",
+		"debugIcon.breakpointStackframeForeground": alpha(ui.yellow, 50),
 		"debugIcon.startForeground": ui.green,
 		"debugIcon.pauseForeground": ui.yellow,
 		"debugIcon.stopForeground": ui.red,
@@ -123,23 +124,23 @@ export function diagnostics(ui: Theme): Record<string, string> {
 		"testing.iconQueued": ui.diagInfo,
 		"testing.iconUnset": ui.fgDim,
 		"testing.iconSkipped": ui.fgDim,
-		"testing.peekBorder": ui.peekViewBorder,
-		"testing.peekHeaderBackground": ui.peekViewTitleBg,
+		"testing.peekBorder": ui.cyan,
+		"testing.peekHeaderBackground": ui.bgBright,
 		"testing.runAction": ui.diagHint,
 		"testing.message.error.decorationForeground": ui.diagError,
-		"testing.message.error.lineBackground": ui.red + "20",
+		"testing.message.error.lineBackground": alpha(ui.red, 13),
 		"testing.message.info.decorationForeground": ui.diagInfo,
-		"testing.message.info.lineBackground": ui.cyan + "20",
-		"testing.messagePeekBorder": ui.peekViewBorder,
-		"testing.messagePeekHeaderBackground": ui.peekViewTitleBg,
-		"testing.coveredBackground": ui.green + "20",
-		"testing.coveredBorder": ui.green + "40",
-		"testing.coveredGutterBackground": ui.green + "40",
-		"testing.uncoveredBranchBackground": ui.red + "30",
-		"testing.uncoveredBackground": ui.red + "20",
-		"testing.uncoveredBorder": ui.red + "40",
-		"testing.uncoveredGutterBackground": ui.red + "40",
+		"testing.message.info.lineBackground": alpha(ui.cyan, 13),
+		"testing.messagePeekBorder": ui.cyan,
+		"testing.messagePeekHeaderBackground": ui.bgBright,
+		"testing.coveredBackground": alpha(ui.green, 13),
+		"testing.coveredBorder": alpha(ui.green, 25),
+		"testing.coveredGutterBackground": alpha(ui.green, 25),
+		"testing.uncoveredBranchBackground": alpha(ui.red, 19),
+		"testing.uncoveredBackground": alpha(ui.red, 13),
+		"testing.uncoveredBorder": alpha(ui.red, 25),
+		"testing.uncoveredGutterBackground": alpha(ui.red, 25),
 		"testing.coverCountBadgeBackground": ui.bgBright,
-		"testing.coverCountBadgeForeground": ui.editorFg,
+		"testing.coverCountBadgeForeground": ui.fg,
 	}
 }

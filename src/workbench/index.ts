@@ -13,23 +13,23 @@
  *   const colors = buildWorkbench(ui);
  */
 
-import { base }        from "./base";
-import { editor }      from "./editor";
-import { uiChrome }    from "./ui-chrome";
-import { inputs }      from "./inputs";
-import { diagnostics } from "./diagnostics";
-import { extensions }  from "./extensions";
-import type { UIColors, ResolvedVariant } from "../colors";
+import type { ResolvedVariant, UIColors } from "../colors"
+import { base } from "./base"
+import { diagnostics } from "./diagnostics"
+import { editor } from "./editor"
+import { extensions } from "./extensions"
+import { inputs } from "./inputs"
+import { uiChrome } from "./ui-chrome"
 
-export { base, editor, uiChrome, inputs, diagnostics, extensions };
+export { base, diagnostics, editor, extensions, inputs, uiChrome }
 
 export function buildWorkbench(ui: UIColors & ResolvedVariant): Record<string, string> {
-  return {
-    ...base(ui),
-    ...editor(ui),
-    ...uiChrome(ui),
-    ...inputs(ui),
-    ...diagnostics(ui),
-    ...extensions(ui),
-  };
+	return {
+		...base(ui),
+		...editor(ui),
+		...uiChrome(ui),
+		...inputs(ui),
+		...diagnostics(ui),
+		...extensions(ui),
+	}
 }

@@ -168,6 +168,7 @@ export function buildSyntax(v: ResolvedVariant): SyntaxResult {
 				"keyword.operator.instanceof",
 				"keyword.other",
 				"storage.type.class",
+				"storage.type.const",
 				"storage.type.function",
 				"storage.type.interface",
 				"storage.type.enum",
@@ -259,6 +260,7 @@ export function buildSyntax(v: ResolvedVariant): SyntaxResult {
 				"meta.object-literal.key",
 				"entity.name.tag.yaml",
 				"support.type.property-name",
+				"support.attribute",
 			],
 			settings: { foreground: identifier },
 		},
@@ -289,7 +291,11 @@ export function buildSyntax(v: ResolvedVariant): SyntaxResult {
 		// -------------------------------------------------------------------------
 		{
 			name: "Parameter",
-			scope: ["variable.parameter.function", "variable.parameter"],
+			scope: [
+				"variable.parameter.function",
+				"variable.parameter",
+				"meta.function.parameters variable.other",
+			],
 			settings: { foreground: special },
 		},
 
@@ -374,7 +380,7 @@ export function buildSyntax(v: ResolvedVariant): SyntaxResult {
 		{
 			name: "HTML / JSX tag attribute",
 			scope: ["entity.other.attribute-name", "meta.tag.attributes entity.other.attribute-name"],
-			settings: { foreground: function_ },
+			settings: { foreground: identifier },
 		},
 		{
 			name: "HTML / JSX tag delimiter (< > /)",
@@ -436,7 +442,7 @@ export function buildSyntax(v: ResolvedVariant): SyntaxResult {
 		{
 			name: "Markup link title",
 			scope: ["entity.name.section.markdown", "string.other.link.title"],
-			settings: { foreground: function_ },
+			settings: { foreground: identifier },
 		},
 
 		// -------------------------------------------------------------------------
@@ -454,7 +460,7 @@ export function buildSyntax(v: ResolvedVariant): SyntaxResult {
 		{
 			name: "CSS property name",
 			scope: ["support.type.property-name.css", "support.type.property-name.scss"],
-			settings: { foreground: function_ },
+			settings: { foreground: identifier },
 		},
 		{
 			name: "CSS property value / unit",
@@ -478,7 +484,7 @@ export function buildSyntax(v: ResolvedVariant): SyntaxResult {
 		{
 			name: "JSON key / YAML key",
 			scope: ["support.type.property-name.json", "entity.name.tag.yaml"],
-			settings: { foreground: function_ },
+			settings: { foreground: identifier },
 		},
 
 		// -------------------------------------------------------------------------

@@ -10,14 +10,14 @@ export function base(ui: Theme): Record<string, string> {
 	return {
 		// Universal focus ring (TelescopePromptBorder, LspSaga borders -> cyan)
 		focusBorder: ui.focusBorder,
-		foreground: ui.editorFg,
+		foreground: ui.fg,
 		disabledForeground: ui.fgDim,
 		"widget.border": ui.border,
 		"widget.shadow": "#00000033",
-		"selection.background": ui.selectionBg,
+		"selection.background": ui.bgBright,
 		descriptionForeground: ui.fgDim,
 		errorForeground: ui.diagError,
-		"icon.foreground": ui.editorFg,
+		"icon.foreground": ui.fg,
 		"sash.hoverBorder": ui.focusBorder,
 
 		// Window / draggable area
@@ -42,13 +42,13 @@ export function base(ui: Theme): Record<string, string> {
 		"textCodeBlock.background": ui.popupBg,
 
 		// Welcome page
-		"welcomePage.background": ui.editorBg,
+		"welcomePage.background": ui.bg,
 		"welcomePage.tileBackground": ui.popupBg,
 		"welcomePage.tileHoverBackground": ui.bgBright,
 		"welcomePage.tileBorder": ui.border,
 		"welcomePage.progress.background": ui.border,
 		"welcomePage.progress.foreground": ui.progressBarBg,
 		"walkThrough.embeddedEditorBackground": ui.popupBg,
-		"walkthrough.stepTitle.foreground": ui.editorFg,
+		"walkthrough.stepTitle.foreground": ui.fg,
 	}
 }

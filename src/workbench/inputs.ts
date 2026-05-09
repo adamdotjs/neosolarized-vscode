@@ -2,6 +2,7 @@
  * Input controls, buttons, dropdowns, checkboxes, and list/tree widgets
  */
 import type { ResolvedVariant, UIColors } from "../colors"
+import { alpha } from "../utils/color"
 
 type Theme = UIColors & ResolvedVariant
 
@@ -10,13 +11,13 @@ export function inputs(ui: Theme): Record<string, string> {
 		// -----------------------------------------------------------------------
 		// Input boxes
 		// -----------------------------------------------------------------------
-		"input.background": ui.inputBg,
-		"input.foreground": ui.inputFg,
-		"input.border": ui.inputBorder,
+		"input.background": ui.bgBright,
+		"input.foreground": ui.fgBright,
+		"input.border": ui.border,
 		"input.placeholderForeground": ui.inputPlaceholder,
-		"inputOption.activeBackground": ui.focusBorder + "40",
+		"inputOption.activeBackground": alpha(ui.focusBorder, 25),
 		"inputOption.activeBorder": ui.focusBorder,
-		"inputOption.activeForeground": ui.editorFg,
+		"inputOption.activeForeground": ui.fg,
 		"inputOption.hoverBackground": ui.bgBright,
 		"inputValidation.infoBackground": ui.popupBg,
 		"inputValidation.infoBorder": ui.diagInfo,
@@ -34,24 +35,24 @@ export function inputs(ui: Theme): Record<string, string> {
 		"button.background": ui.buttonBg,
 		"button.foreground": ui.buttonFg,
 		"button.border": "#00000000",
-		"button.separator": ui.buttonFg + "80",
+		"button.separator": alpha(ui.buttonFg, 50),
 		"button.hoverBackground": ui.buttonHoverBg,
 		"button.secondaryBackground": ui.bgBright,
-		"button.secondaryForeground": ui.editorFg,
-		"button.secondaryHoverBackground": ui.bgBright + "cc",
-		"checkbox.background": ui.inputBg,
-		"checkbox.foreground": ui.editorFg,
-		"checkbox.border": ui.inputBorder,
-		"checkbox.selectBackground": ui.inputBg,
+		"button.secondaryForeground": ui.fg,
+		"button.secondaryHoverBackground": alpha(ui.bgBright, 80),
+		"checkbox.background": ui.bgBright,
+		"checkbox.foreground": ui.fg,
+		"checkbox.border": ui.border,
+		"checkbox.selectBackground": ui.bgBright,
 		"checkbox.selectBorder": ui.focusBorder,
 
 		// -----------------------------------------------------------------------
 		// Dropdown / Select
 		// -----------------------------------------------------------------------
-		"dropdown.background": ui.inputBg,
+		"dropdown.background": ui.bgBright,
 		"dropdown.listBackground": ui.popupBg,
-		"dropdown.foreground": ui.inputFg,
-		"dropdown.border": ui.inputBorder,
+		"dropdown.foreground": ui.fgBright,
+		"dropdown.border": ui.border,
 
 		// -----------------------------------------------------------------------
 		// Lists & Trees (explorer, open editors, etc.)
@@ -60,15 +61,15 @@ export function inputs(ui: Theme): Record<string, string> {
 		"list.activeSelectionForeground": ui.popupSelectionFg,
 		"list.activeSelectionIconForeground": ui.popupSelectionFg,
 		"list.inactiveSelectionBackground": ui.bgBright,
-		"list.inactiveSelectionForeground": ui.editorFg,
+		"list.inactiveSelectionForeground": ui.fg,
 		"list.inactiveSelectionIconForeground": ui.fgDim,
-		"list.hoverBackground": ui.bgBright + "80",
-		"list.hoverForeground": ui.editorFg,
+		"list.hoverBackground": alpha(ui.bgBright, 50),
+		"list.hoverForeground": ui.fg,
 		"list.focusBackground": ui.popupSelectionBg,
 		"list.focusForeground": ui.popupSelectionFg,
 		"list.focusOutline": "#00000000",
 		"list.focusHighlightForeground": ui.cyan,
-		"list.dropBackground": ui.bgBright + "80",
+		"list.dropBackground": alpha(ui.bgBright, 50),
 		"list.dropBetweenBackground": ui.focusBorder,
 		"list.highlightForeground": ui.cyan,
 		"list.filterMatchBackground": ui.findMatchHL,
@@ -82,42 +83,42 @@ export function inputs(ui: Theme): Record<string, string> {
 		"listFilterWidget.noMatchesOutline": ui.diagError,
 		"listFilterWidget.shadow": "#00000033",
 
-		"tree.indentGuidesStroke": ui.indentGuide,
-		"tree.inactiveIndentGuidesStroke": ui.indentGuide + "80",
+		"tree.indentGuidesStroke": ui.bgBright,
+		"tree.inactiveIndentGuidesStroke": alpha(ui.bgBright, 50),
 		"tree.tableColumnsBorder": ui.border,
-		"tree.tableOddRowsBackground": ui.bgBright + "30",
+		"tree.tableOddRowsBackground": alpha(ui.bgBright, 19),
 
 		// -----------------------------------------------------------------------
 		// Keybinding label
 		// -----------------------------------------------------------------------
 		"keybindingLabel.background": ui.bgBright,
-		"keybindingLabel.foreground": ui.editorFg,
+		"keybindingLabel.foreground": ui.fg,
 		"keybindingLabel.border": ui.border,
 		"keybindingLabel.bottomBorder": ui.border,
 		"keybindingTable.headerBackground": ui.bgBright,
-		"keybindingTable.rowsBackground": ui.bgBright + "30",
+		"keybindingTable.rowsBackground": alpha(ui.bgBright, 19),
 
 		// -----------------------------------------------------------------------
 		// Sliders / custom controls
 		// -----------------------------------------------------------------------
-		"settings.headerForeground": ui.editorFg,
+		"settings.headerForeground": ui.fg,
 		"settings.headerBorder": ui.border,
 		"settings.modifiedItemIndicator": ui.cyan,
-		"settings.dropdownBackground": ui.inputBg,
-		"settings.dropdownForeground": ui.inputFg,
-		"settings.dropdownBorder": ui.inputBorder,
+		"settings.dropdownBackground": ui.bgBright,
+		"settings.dropdownForeground": ui.fgBright,
+		"settings.dropdownBorder": ui.border,
 		"settings.dropdownListBorder": ui.border,
-		"settings.checkboxBackground": ui.inputBg,
-		"settings.checkboxForeground": ui.editorFg,
-		"settings.checkboxBorder": ui.inputBorder,
-		"settings.rowHoverBackground": ui.bgBright + "60",
-		"settings.textInputBackground": ui.inputBg,
-		"settings.textInputForeground": ui.inputFg,
-		"settings.textInputBorder": ui.inputBorder,
-		"settings.numberInputBackground": ui.inputBg,
-		"settings.numberInputForeground": ui.inputFg,
-		"settings.numberInputBorder": ui.inputBorder,
-		"settings.focusedRowBackground": ui.bgBright + "40",
+		"settings.checkboxBackground": ui.bgBright,
+		"settings.checkboxForeground": ui.fg,
+		"settings.checkboxBorder": ui.border,
+		"settings.rowHoverBackground": alpha(ui.bgBright, 38),
+		"settings.textInputBackground": ui.bgBright,
+		"settings.textInputForeground": ui.fgBright,
+		"settings.textInputBorder": ui.border,
+		"settings.numberInputBackground": ui.bgBright,
+		"settings.numberInputForeground": ui.fgBright,
+		"settings.numberInputBorder": ui.border,
+		"settings.focusedRowBackground": alpha(ui.bgBright, 25),
 		"settings.focusedRowBorder": ui.focusBorder,
 		"settings.sashBorder": ui.border,
 		"settings.settingsHeaderHoverForeground": ui.cyan,
@@ -127,7 +128,7 @@ export function inputs(ui: Theme): Record<string, string> {
 		// -----------------------------------------------------------------------
 		"toolbar.hoverBackground": ui.bgBright,
 		"toolbar.hoverOutline": "#00000000",
-		"toolbar.activeBackground": ui.bgBright + "cc",
+		"toolbar.activeBackground": alpha(ui.bgBright, 80),
 
 		// -----------------------------------------------------------------------
 		// Action bar

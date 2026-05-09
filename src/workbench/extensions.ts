@@ -3,6 +3,7 @@
  * interactive notebooks, chat / Copilot, and terminal
  */
 import type { UIColors, ResolvedVariant } from "../colors";
+import { alpha } from "../utils/color";
 
 type Theme = UIColors & ResolvedVariant;
 
@@ -17,9 +18,9 @@ export function extensions(ui: Theme): Record<string, string> {
     "extensionButton.background":                   ui.buttonBg,
     "extensionButton.foreground":                   ui.buttonFg,
     "extensionButton.hoverBackground":              ui.buttonHoverBg,
-    "extensionButton.separator":                    ui.buttonFg + "80",
+    "extensionButton.separator":                    alpha(ui.buttonFg, 50),
     "extensionBadge.remoteBackground":              ui.cyan,
-    "extensionBadge.remoteForeground":              ui.editorBg,
+    "extensionBadge.remoteForeground":              ui.bg,
     "extensionIcon.starForeground":                 ui.yellow,
     "extensionIcon.verifiedForeground":             ui.cyan,
     "extensionIcon.preReleaseForeground":           ui.orange,
@@ -28,15 +29,15 @@ export function extensions(ui: Theme): Record<string, string> {
     // -----------------------------------------------------------------------
     // Terminal
     // -----------------------------------------------------------------------
-    "terminal.background":                          ui.panelBg,
-    "terminal.foreground":                          ui.editorFg,
-    "terminal.border":                              ui.panelBorder,
-    "terminal.dropBackground":                      ui.bgBright + "80",
+    "terminal.background":                          ui.bg,
+    "terminal.foreground":                          ui.fg,
+    "terminal.border":                              ui.border,
+    "terminal.dropBackground":                      alpha(ui.bgBright, 50),
     "terminal.tab.activeBorder":                    ui.focusBorder,
-    "terminalCursor.background":                    ui.editorBg,
+    "terminalCursor.background":                    ui.bg,
     "terminalCursor.foreground":                    ui.editorCursor,
     "terminal.selectionBackground":                 ui.editorSelection,
-    "terminal.selectionForeground":                 ui.editorFg,
+    "terminal.selectionForeground":                 ui.fg,
     "terminal.inactiveSelectionBackground":         ui.editorSelectionHL,
     "terminal.findMatchBackground":                 ui.findMatch,
     "terminal.findMatchBorder":                     ui.findMatchBorder,
@@ -62,10 +63,10 @@ export function extensions(ui: Theme): Record<string, string> {
     "terminal.initialHintForeground":               ui.fgDim,
     "terminalOverviewRuler.cursorForeground":        ui.editorCursor,
     "terminalOverviewRuler.findMatchForeground":     ui.findMatchBorder,
-    "terminalCommandDecoration.defaultBackground":  ui.fgDim + "60",
+    "terminalCommandDecoration.defaultBackground":  alpha(ui.fgDim, 38),
     "terminalCommandDecoration.successBackground":  ui.green,
     "terminalCommandDecoration.errorBackground":    ui.red,
-    "terminalStickyScroll.background":              ui.panelBg,
+    "terminalStickyScroll.background":              ui.bg,
     "terminalStickyScrollHover.background":         ui.bgBright,
 
     // -----------------------------------------------------------------------
@@ -76,8 +77,8 @@ export function extensions(ui: Theme): Record<string, string> {
     // -----------------------------------------------------------------------
     // Timeline
     // -----------------------------------------------------------------------
-    "timelineView.foreground":                      ui.editorFg,
-    "timelineView.itemHoverBackground":             ui.bgBright + "80",
+    "timelineView.foreground":                      ui.fg,
+    "timelineView.itemHoverBackground":             alpha(ui.bgBright, 50),
 
     // -----------------------------------------------------------------------
     // Comments / Review (PR review threads)
@@ -91,23 +92,23 @@ export function extensions(ui: Theme): Record<string, string> {
     // -----------------------------------------------------------------------
     // Interactive / Notebook
     // -----------------------------------------------------------------------
-    "notebook.editorBackground":                    ui.editorBg,
-    "notebook.cellBackground":                      ui.editorBg,
-    "notebook.cellEditorBackground":                ui.editorBg,
+    "notebook.editorBackground":                    ui.bg,
+    "notebook.cellBackground":                      ui.bg,
+    "notebook.cellEditorBackground":                ui.bg,
     "notebook.cellBorderColor":                     ui.border,
     "notebook.focusedCellBackground":               ui.bgBright,
-    "notebook.selectedCellBackground":              ui.bgBright + "80",
+    "notebook.selectedCellBackground":              alpha(ui.bgBright, 50),
     "notebook.selectedCellBorder":                  ui.border,
     "notebook.focusedCellBorder":                   ui.focusBorder,
     "notebook.focusedEditorBorder":                 ui.focusBorder,
     "notebook.inactiveFocusedCellBorder":           ui.border,
     "notebook.inactiveSelectedCellBorder":          ui.border,
-    "notebook.cellHoverBackground":                 ui.bgBright + "40",
+    "notebook.cellHoverBackground":                 alpha(ui.bgBright, 25),
     "notebook.cellStatusBarItemHoverBackground":    ui.bgBright,
     "notebook.cellInsertionIndicator":              ui.focusBorder,
     "notebook.cellToolbarSeparator":                ui.border,
     "notebook.outputContainerBorderColor":          ui.border,
-    "notebook.outputContainerBackgroundColor":      ui.panelBg,
+    "notebook.outputContainerBackgroundColor":      ui.bg,
     "notebook.symbolHighlightBackground":           ui.findMatchHL,
     "notebookStatusSuccessIcon.foreground":         ui.diagHint,
     "notebookStatusErrorIcon.foreground":           ui.diagError,
@@ -120,21 +121,21 @@ export function extensions(ui: Theme): Record<string, string> {
     // -----------------------------------------------------------------------
     // Chat / Copilot / AI features
     // -----------------------------------------------------------------------
-    "chat.requestBackground":                       ui.bgBright + "40",
+    "chat.requestBackground":                       alpha(ui.bgBright, 25),
     "chat.requestBorder":                           ui.border,
     "chat.slashCommandBackground":                  ui.bgBright,
     "chat.slashCommandForeground":                  ui.cyan,
     "chat.avatarBackground":                        ui.bgBright,
-    "chat.avatarForeground":                        ui.editorFg,
+    "chat.avatarForeground":                        ui.fg,
     "chat.editedFileForeground":                    ui.gitModified,
-    "inlineChat.regionHighlight":                   ui.bgBright + "80",
+    "inlineChat.regionHighlight":                   alpha(ui.bgBright, 50),
 
-    "editorChat.requestBackground":                 ui.bgBright + "40",
+    "editorChat.requestBackground":                 alpha(ui.bgBright, 25),
     "editorChat.requestBorder":                     ui.border,
 
     // Copilot icon / status
     "editorSuggestWidget.background":               ui.popupBg,
-    "editorSuggestWidget.border":                   ui.popupBorder,
+    "editorSuggestWidget.border":                   ui.border,
     "editorSuggestWidget.foreground":               ui.popupFg,
     "editorSuggestWidget.focusHighlightForeground": ui.cyan,
     "editorSuggestWidget.highlightForeground":      ui.cyan,
@@ -149,7 +150,7 @@ export function extensions(ui: Theme): Record<string, string> {
     "search.resultsInfoForeground":                 ui.fgDim,
     "searchEditor.findMatchBackground":             ui.findMatch,
     "searchEditor.findMatchBorder":                 ui.findMatchBorder,
-    "searchEditor.textInputBorder":                 ui.inputBorder,
+    "searchEditor.textInputBorder":                 ui.border,
 
     // -----------------------------------------------------------------------
     // Symbol outline / call hierarchy
@@ -183,9 +184,9 @@ export function extensions(ui: Theme): Record<string, string> {
     "symbolIcon.snippetForeground":                 ui.magenta,
     "symbolIcon.stringForeground":                  ui.cyan,
     "symbolIcon.structForeground":                  ui.yellow,
-    "symbolIcon.textForeground":                    ui.editorFg,
+    "symbolIcon.textForeground":                    ui.fg,
     "symbolIcon.typeParameterForeground":           ui.orange,
     "symbolIcon.unitForeground":                    ui.orange,
-    "symbolIcon.variableForeground":                ui.editorFg,
+    "symbolIcon.variableForeground":                ui.fg,
   };
 }
